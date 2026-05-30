@@ -1,6 +1,14 @@
 // Copyright 2021 NNTU-CS
+#include <iostream>
+#include <string>
 #include "bst.h"
 
 int main() {
-    return 0;
+  BST<std::string> words;
+  makeTree(words, "src/war_peace.txt");
+  std::cout << "Tree height: " << words.depth() << "\n";
+  std::cout << "Search 'the': " << words.search("the") << "\n";
+  std::cout << "Search 'pierre': " << words.search("pierre") << "\n";
+  printFreq(words);
+  return 0;
 }
