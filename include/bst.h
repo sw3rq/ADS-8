@@ -10,7 +10,7 @@
 
 template <typename T>
 class BST {
-private:
+ private:
     struct Node {
         T key;
         int count;
@@ -24,11 +24,9 @@ private:
         if (!node) return new Node(value);
         if (value == node->key) {
             node->count++;
-        }
-        else if (value < node->key) {
+        } else if (value < node->key) {
             node->left = insert(node->left, value);
-        }
-        else {
+        } else {
             node->right = insert(node->right, value);
         }
         return node;
@@ -64,7 +62,7 @@ private:
         }
     }
 
-public:
+ public:
     BST() : root(nullptr) {}
     ~BST() { delTree(root); }
 
@@ -91,8 +89,6 @@ public:
         }
     }
 
-    // Нужно для доступа к root из alg.cpp
-    Node* getRoot() const { return root; }
     void collectNodesPublic(std::vector<std::pair<T, int>>& out) const {
         collectNodes(root, out);
     }
