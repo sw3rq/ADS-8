@@ -3,10 +3,12 @@
 #include <string>
 #include "bst.h"
 
+void makeTree(BST<std::string>& tree, const char* filename);
+void printFreq(BST<std::string>& tree);
+
 int main() {
     BST<std::string> words;
-
-    makeTree(words, "C:/Users/Admin/source/repos/LabBST/x64/Debug/war_peace.txt");
+    makeTree(words, "src/war_peace.txt");
 
     std::cout << "Tree height: " << words.depth() << "\n";
     std::cout << "Search 'the': " << words.search("the") << "\n";
