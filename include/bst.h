@@ -83,12 +83,40 @@ class BST {
       [](const std::pair<T, int>& a, const std::pair<T, int>& b) {
         return a.second > b.second;
       });
-    for (const auto& p : freq)
-      out << p.first << ": " << p.second << "\n";
+    int rank = 1;
+    for (const auto& p : freq) {
+      out << rank << "    " << p.first << ": " << p.second << "\n";
+      rank++;
+    }
   }
 };
 
-void makeTree(BST<std::string>& tree, const char* filename);
-void printFreq(BST<std::string>& tree);
+// Глобальные функции (НЕ внутри класса)
+void makeTree(BST<std::string>& tree, const char* filename) {
+  std::ifstream file(filename);
+  if (!file) return;
+  std::string word;
+  char ch;
+  while (file.get(ch)) {
+    if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || (ch == '\'')) {
+      word += static_cast<char>(tolower(static_cast<unsigned char>(ch)));
+    } else if (!word.empty()) {
+      tree.insert(word);
+      word.clear();
+    }
+  }
+  if (!word.empty())
+    tree.insert(word);
+  file.close();
+}
+
+void printFreq(BST<std::string>& tree) {
+  tree.printFreq(std::cout);
+  std::ofstream out("result/freq.txt");
+  if (out) {
+    tree.printFreq(out);
+    out.close();
+  }
+}
 
 #endif  // INCLUDE_BST_H_
